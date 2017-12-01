@@ -1,6 +1,14 @@
 ---
 driver:
-  name: vagrant
+  name: ec2
+  aws_ssh_key_id: KeyPair-ChefLearning-AWSLinux
+  region: us-east-1
+  availability_zone: b
+  subnet_id: subnet-5ca59b71
+  instance_type: t2.micro
+  image_id: ami-aa2ea6d0
+  security_group_ids: ["sg-1c914969"]
+  retryable_tries: 120
 
 provisioner:
   name: chef_zero
@@ -12,9 +20,12 @@ provisioner:
 verifier:
   name: inspec
 
+transport:
+  ssh_key: ~/.ssh/KeyPair-ChefLearning-AWSLinux.pem
+
 platforms:
   - name: ubuntu-16.04
-  - name: centos-7
+  #- name: centos-7
 
 suites:
   - name: default
